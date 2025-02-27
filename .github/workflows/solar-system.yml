@@ -19,7 +19,7 @@ jobs:
             nodejs_version: [18,19,20]
             operating_system: [ububtu_latest,macos-latest]
             exclude:
-               - nodejs_version: 18, 19
+               - nodejs_version: 18
                  operating_system: macos-latest
       
     runs-on: ${{matrix.operating_system}}
@@ -27,7 +27,7 @@ jobs:
       - name: checkout repo
         uses: actions/checkout@v4
 
-      - name: Setup NodeJS Version -${{matrix.nodejs_version}}
+      - name: Setup NodeJS Version - ${{matrix.nodejs_version}}
         uses: actions/setup-node@v3 
         with: 
           node-version: ${{matrix.nodejs_version}}
