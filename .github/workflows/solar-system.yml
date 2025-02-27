@@ -17,10 +17,10 @@ jobs:
     strategy:
        matrix:
             nodejs_version: [18,19,20]
-            operating_system: [ububtu_latest,macos-latest]
-            exclude:
-               - nodejs_version: 18
-                 operating_system: macos-latest
+            operating_system: [ububtu_latest]
+            # exclude:
+            #    - nodejs_version: 18
+            #      operating_system: macos-latest
       
     runs-on: ${{matrix.operating_system}}
     steps:
@@ -41,7 +41,8 @@ jobs:
       - name: Archive Test Result 
         uses: actions/upload-artifact@v4 
         with: 
-          name: Mocha-Test-Result-${{matrix.nodejs_version}}-${{matrix.operating_system}}
+          name: Mocha-Test-Result
+          # -${{matrix.nodejs_version}}-${{matrix.operating_system}}
           path: test-results.xml
  
         
