@@ -63,7 +63,7 @@ jobs:
       run : npm run coverage 
 
     - name: Arcive Test Coverage 
-      uses: action/upload-artifact@v4
+      uses: actions/upload-artifact@v4
       with:
         name: code-coverage-result 
         path: covarage
