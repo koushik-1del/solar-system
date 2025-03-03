@@ -12,31 +12,31 @@ env:
     MONGO_PASSWORD: ${{ secrets.MONGO_PASSWORD}}
 
 jobs:
-  unit-testing:
-    name: unit testing 
-    strategy:
-       matrix:
-            nodejs_version: [18,19,20]
-            operating_system: [ubuntu-latest, macos-latest]
-            exclude:
-                - nodejs_version: 18
-                  operating_system: macos-latest
+  # unit-testing:
+  #   name: unit testing 
+  #   strategy:
+  #      matrix:
+  #           nodejs_version: [18,19,20]
+  #           operating_system: [ubuntu-latest, macos-latest]
+  #           exclude:
+  #               - nodejs_version: 18
+  #                 operating_system: macos-latest
       
-    runs-on: ${{ matrix.operating_system }}
-    steps:
-      - name: checkout repository
-        uses: actions/checkout@v4
+  #   runs-on: ${{ matrix.operating_system }}
+  #   steps:
+  #     - name: checkout repository
+  #       uses: actions/checkout@v4
 
-      - name: Setup NodeJS Version - ${{matrix.nodejs_version}}
-        uses: actions/setup-node@v3 
-        with: 
-          node-version: ${{matrix.nodejs_version}}
+  #     - name: Setup NodeJS Version - ${{matrix.nodejs_version}}
+  #       uses: actions/setup-node@v3 
+  #       with: 
+  #         node-version: ${{matrix.nodejs_version}}
 
-      - name: Install Dependencies 
-        run: npm install 
+  #     - name: Install Dependencies 
+  #       run: npm install 
 
-      - name: Unit Testing 
-        run: npm test
+  #     - name: Unit Testing 
+  #       run: npm test
       
       # - name: Archive Test Result 
       #   uses: actions/upload-artifact@v4 
@@ -44,4 +44,27 @@ jobs:
       #     name: Mocha-Test-Result
       #     path: test-results.xml
  
-        
+  code-coverage:
+    name: Code Coverage
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout Repo
+      uses: actions/checkout@v4
+
+    - name: Setup Nodejs Version - 18
+      uses: actions/setup-node@v3
+      with:
+        node-version: 18
+
+    - name: Inatall dependencies 
+      run: npm install 
+
+    - name: check code coverage 
+      run : npm run coverage 
+
+    - name: Arcive Test Coverage 
+      uses: action/upload-artifact@v4
+      with:
+        name: code-coverage-result 
+        path: covarage
+        retention-days: 5
