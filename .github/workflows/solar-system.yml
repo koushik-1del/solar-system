@@ -67,5 +67,5 @@ jobs:
       uses: actions/upload-artifact@v4
       with:
         name: code-coverage-result 
-        path: covarage
+        path: coverage
         retention-days: 5
